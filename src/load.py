@@ -6,7 +6,7 @@ import logging
 #logging.basicConfig(level=logging.INFO)
 import nltk
 import pandas as pd
-
+#from bert import Ner
 import matplotlib.pyplot as plt
 plt.show()
 
@@ -50,8 +50,8 @@ print (segments_ids)
 
 
 # Load pre-trained model (weights)
-model = BertModel.from_pretrained('bert-base-uncased',
-                                  output_hidden_states = True, # Whether the model returns all hidden-states.
+model = BertModel.from_pretrained('bert-large-uncased',
+                                  output_hidden_states = True # Whether the model returns all hidden-states.
                                   )
 
 # Put the model in "evaluation" mode, meaning feed-forward operation.
@@ -59,6 +59,9 @@ model_eval = model.eval()
 
 print(model_eval)
 
+
+#BERT Base: 12 layers (transformer blocks), 12 attention heads, and 110 million parameters
+#BERT Large: 24 layers (transformer blocks), 16 attention heads and, 340 million parameters
 
 
 # Run the text through BERT, and collect all of the hidden states produced
@@ -75,7 +78,7 @@ with torch.no_grad():
     hidden_states = outputs[2]
 
 
-print ("Number of layers:", len(hidden_states), "  (initial embeddings + 12 BERT layers)")
+print ("Number of layers:", len(hidden_states), "  (initial embeddings + 24 BERT layers)")
 layer_i = 0
 
 print ("Number of batches:", len(hidden_states[layer_i]))
@@ -96,3 +99,9 @@ vec = hidden_states[layer_i][batch_i][token_i]
 plt.figure(figsize=(10,10))
 plt.hist(vec, bins=200)
 plt.show()
+
+# `hidden_states` is a Python list.
+print('      Type of hidden_states: ', type(hidden_states))
+
+# Each layer in the list is a torch tensor.
+print('Tensor shape for each layer: ', hidden_states[0].size())
