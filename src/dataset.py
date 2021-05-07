@@ -1,6 +1,7 @@
 import config
 import torch
 
+text = "Well, if you are looking for a great mind control movie, this is it. No movie has had so many gorgeous women under mind control, and naked. Marie Forsa, as the busty Helga, is under just about everytime she falls asleep and a few times when she isn't. One wishes they made more movies like this one."
 
 class EntityDataset:
     def __init__(self, texts, pos, tags):
